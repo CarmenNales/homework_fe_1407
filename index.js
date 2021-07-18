@@ -1,6 +1,6 @@
 // Importeer functies
 const { question } = require("readline-sync");
-const { displayWordSoFar, getWrongGuesses, isGameWon, isGameLost } = require("./gamelogic");
+const { isUserInputRight, displayWordSoFar, getWrongGuesses, isGameWon, isGameLost, getDrawing } = require("./gamelogic");
 
 // Hoofdfunctie
 function game(word, guesses) {
@@ -24,15 +24,19 @@ function game(word, guesses) {
   guesses.push(letter);
 
   // Roep de functies aan en sla ze op in een variabele
+  const rightLetter = isUserInputRight(word, letter)
   const displayWord = displayWordSoFar(word, guesses);
   const wrongGuesses = getWrongGuesses(word, guesses);
   const tellWrongNumbers = wrongGuesses.length;
+  const drawing = getDrawing(rightLetter, tellWrongNumbers);
   const isLost = isGameLost(word, wrongGuesses);
   const isWon = isGameWon(word, displayWord);
 
   // Log informatie voor de speler
-  console.log(`Jouw woord is: ${displayWord}`);
+  console.log(`Het woord is nu: ${displayWord}`);
   console.log(`Deze letters zitten niet in het woord: ${wrongGuesses}, aantal fouten: ${ tellWrongNumbers }.`);
+  console.log(drawing)
+  console.log("****************************************************************")
 
   // Controleer of de speler verloren heeft
   if (isLost) {
@@ -59,7 +63,20 @@ __________
 |       O    ██║░░██╗░███████║██║░░░░░██║░░██╗░░░░░░██║█████╗░░
 |      / \\   ██║░░╚██╗██╔══██║██║░░░░░██║░░╚██╗██╗░░██║██╔══╝░░
 |            ╚██████╔╝██║░░██║███████╗╚██████╔╝╚█████╔╝███████╗
-===========  ░╚═════╝░╚═╝░░╚═╝╚══════╝░╚═════╝░░╚════╝░╚══════╝
-`);
+==========  ░╚═════╝░╚═╝░░╚═╝╚══════╝░╚═════╝░░╚════╝░╚══════╝
+
+****************************************************************
+                          START SPEL
+****************************************************************
+          
+            __________  
+            | /         
+            |/       
+            |          
+            |        
+            |           
+            =========== 
+            
+****************************************************************     `);
 
 game("javascript", []);
